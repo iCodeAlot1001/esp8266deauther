@@ -1,7 +1,9 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_ST7735.h>
+#include <ESP8266WiFi.h>
 #include <SPI.h>
 #include "displayFunc.h"
+#include "wifi_scan.cpp"
 
 #define TFT_CS   15  // D8
 #define TFT_RST  2   // D4
@@ -46,6 +48,7 @@ void loop(){
 
     if(button1state == LOW){
         btn1();
+        if()
     }
     if(button2state == LOW){
         btn2();
@@ -53,4 +56,7 @@ void loop(){
     if(button3state == LOW){
         btn3();
     }
+}
+void wifi_scan(){
+
 }
