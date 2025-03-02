@@ -11,11 +11,21 @@
 #define TFT_MOSI 13  //D7
 #define TFT_SCK  14  //D5 
 
-const int button1 = 5;
-const int button2 = 4;
-const int button3 = 12;
+const char button1 = 5; //D2
+const char button2 = 4; //D1
+const char button3 = 12; //D6 
 
 Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_MOSI, TFT_SCK, TFT_RST);
+
+// switch case settings .........
+
+//int buttonState = LOW;
+//enum Buttons { btn1, btn2, btn3 };
+
+
+
+
+// ...........
 
 int button1state = HIGH;
 int button2state = HIGH;
@@ -30,15 +40,15 @@ void setup(){
     Serial.println("STARTING...");
 
         tft.initR(INITR_BLACKTAB);
-        tft.setRotation(0);
+        tft.setRotation(2);
         tft.fillScreen(ST7735_BLACK);
         tft.setTextColor(ST7735_WHITE);
         tft.setTextSize(1);
         tft.setCursor(0,0);
         tft.println("SELECT AN ATTACK:");
-        tft.println("btn1 = WIFI JAMMER");
-        tft.println("btn2 = BLUETOOTH JAMMER");
-        tft.println("btn3 = RGB SCREEN");
+        tft.println("BTN1 = WIFI JAMMER");
+        tft.println("BTN2 = BLUETOOTH JAMMER");
+        tft.println("BTN3 = RGB SCREEN");
         delay(2000);
 }
 void loop(){
@@ -53,6 +63,15 @@ void loop(){
         delay(2000);
         wifi_scan_repeat();
         delay(1000);
+     //   switch (buttonState)
+        //{
+       // case constant expressio:
+            
+       //     break;
+        
+      // default:
+       //     break;
+    //    }
     }
     else if(button2state == LOW){
         btn2();
