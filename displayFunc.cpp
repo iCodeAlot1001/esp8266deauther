@@ -32,3 +32,13 @@ void blank(){
     delay(500);
 }
 //after the starting
+void case0(){
+    tft.fillScreen(ST7735_BLACK);
+    tft.setTextColor(ST7735_WHITE);
+    tft.setTextSize(1);
+    tft.setCursor(0,0);
+    for (int i = 0; i < 10; i++){
+        tft.println(networksArray[i]);
+    }
+    delay(2000);
+}

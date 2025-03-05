@@ -15,6 +15,8 @@ const char button1 = 5; //D2
 const char button2 = 4; //D1
 const char button3 = 12; //D6 
 
+const screenCursor = 0;
+
 Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_MOSI, TFT_SCK, TFT_RST);
 
 // switch case settings .........
@@ -55,23 +57,42 @@ void loop(){
     button1state = digitalRead(button1);
     button2state = digitalRead(button2);
     button3state = digitalRead(button3);
+    int buttonCursor = 0;
 
     if(button1state == LOW){
         btn1();
         delay(1000);
         wifi_scan();
-        delay(2000);
-        wifi_scan_repeat();
         delay(1000);
-     //   switch (buttonState)
-        //{
-       // case constant expressio:
-            
-       //     break;
+
+        if(digitalRead(BUTTON_1_PIN) == HIGH){
+            buttonCursor++; 
+        } else if(digitalRead(BUTTON_2_PIN) == HIGH){
+            buttonCursor;
+            if (condition)
         
-      // default:
-       //     break;
-    //    }
+            }
+            
+        } else if(digitalRead(BUTTON_3_PIN) == HIGH){
+            networkIndex = 2;
+        }
+
+        switch (networkIndex){
+            case 0: // BUTTON UP
+                tft.println(networksArray[buttonCursor]);
+                break;
+            case 1: // BUTTON DOWN
+                tft.println(networksArray[buttonCursor]);
+                break;
+            case 2: // BUTTON SELECT
+                tft.println("Attacking network:");
+                tft.println(networksArray[0]);
+                break;  
+            default:
+                tft.println("Invalid network index.");
+                break;            
+          }
+        }
     }
     else if(button2state == LOW){
         btn2();

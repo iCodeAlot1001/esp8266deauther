@@ -1,5 +1,6 @@
 #include <ESP8266WiFi.h>
 #include <Adafruit_ST7735.h>
+#include <vector>
 
 extern Adafruit_ST7735 tft;
 
@@ -19,6 +20,10 @@ void wifi_scan(){
     WiFi.disconnect();
     delay(200);
 
+    
+    std::vector<String> networksArray; //storage for networks
+    
+
     int networkCount = WiFi.scanNetworks();
 
     if(networkCount == 0){
@@ -33,6 +38,11 @@ void wifi_scan(){
             tft.print(i+1);
             tft.print(":");
             tft.print(WiFi.SSID(i));
+
+            String getVal = WiFi.SSID(i);
+            networksArray.push_back(getVal);
+            Serial.println(networksArray[i]);
+
             if(WiFi.encryptionType(i)== ENC_TYPE_NONE){
                 tft.println("(Open)");
             }
@@ -58,4 +68,3 @@ void wifi_scan_repeat(){
         }
     }
 }
-//nakakatamad mag integrate
