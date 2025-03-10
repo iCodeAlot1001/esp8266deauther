@@ -1,9 +1,12 @@
 #include <ESP8266WiFi.h>
 #include <Adafruit_ST7735.h>
 #include <vector>
+#include "wifi_scan.h" 
 
 extern Adafruit_ST7735 tft;
 
+//ALREADY WORKING
+//DO NOT TOUCH UNLESS THERES AN OPTIMIZATION OR UPGRADE
 
 void wifi_scan(){
     tft.fillScreen(ST7735_RED);
@@ -20,9 +23,8 @@ void wifi_scan(){
     WiFi.disconnect();
     delay(200);
 
-    
-    std::vector<String> networksArray; //storage for networks
-    
+   std::vector<String> networksArray; //storage for networks
+
 
     int networkCount = WiFi.scanNetworks();
 

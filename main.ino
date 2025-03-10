@@ -2,6 +2,7 @@
 #include <Adafruit_ST7735.h>
 #include <ESP8266WiFi.h>
 #include <SPI.h>
+ 
 #include "displayFunc.h"
 #include "wifi_scan.h"
 
@@ -15,7 +16,6 @@ const char button1 = 5; //D2
 const char button2 = 4; //D1
 const char button3 = 12; //D6 
 
-const screenCursor = 0;
 
 Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_MOSI, TFT_SCK, TFT_RST);
 
@@ -33,6 +33,15 @@ int button1state = HIGH;
 int button2state = HIGH;
 int button3state = HIGH;
 
+int screenCursor = -1; // screen size ata parang ganon
+int buttonCursor = 0; // eto yung navigator
+int networkIndex = 0; // eto yung pinaka gumagalaw sa buttons
+ 
+ //TEST CODE
+
+
+
+//TEST CODE REVERT IF FAILS
 void setup(){
     pinMode(button1, INPUT_PULLUP);
     pinMode(button2, INPUT_PULLUP);
@@ -57,7 +66,6 @@ void loop(){
     button1state = digitalRead(button1);
     button2state = digitalRead(button2);
     button3state = digitalRead(button3);
-    int buttonCursor = 0;
 
     if(button1state == LOW){
         btn1();
@@ -65,35 +73,62 @@ void loop(){
         wifi_scan();
         delay(1000);
 
-        if(digitalRead(BUTTON_1_PIN) == HIGH){
+        if(digitalRead(button1) == LOW){
             buttonCursor++; 
-        } else if(digitalRead(BUTTON_2_PIN) == HIGH){
-            buttonCursor;
-            if (condition)
-        
-            }
-            
-        } else if(digitalRead(BUTTON_3_PIN) == HIGH){
-            networkIndex = 2;
+            if(buttonCursor>=networksArray.size())screenCursor=0;
         }
-
+        else if(digitalRead(button2) == LOW){
+            buttonCursor--; if(screenCursor<0)buttonCursor=networksArray.size()-1;
+            if(buttonCursor<0)screenCursor=networksArray.size()-1;
+        }
+         else if(digitalRead(button3) == LOW){
+            networkIndex = screenCursor;
+        }     
         switch (networkIndex){
             case 0: // BUTTON UP
-                tft.println(networksArray[buttonCursor]);
+                tft.fillScreen(ST7735_BLACK);
+                tft.setTextColor(ST7735_YELLOW, ST7735_WHITE);
+                tft.setTextSize(1);
+                tft.setCursor(0,0);
+                for(int q=0;q<networksArray.size();){
+                    if (screenCursor == buttonCursor){ //test line
+                        tft.print(networksArray[buttonCursor]); //test line
+                    }
+                    tft.println(networksArray[q]);
+                    q++;
+                }
                 break;
             case 1: // BUTTON DOWN
+                tft.fillScreen(ST7735_BLACK);
+                tft.setTextColor(ST7735_YELLOW, ST7735_WHITE);
+                tft.setTextSize(1);
+                tft.setCursor(0,0);
                 tft.println(networksArray[buttonCursor]);
+                for(int q=0;q<networksArray.size();){
+                    if (screenCursor == buttonCursor){ //test line
+                        tft.print(networksArray[buttonCursor]); //test line
+                    }
+                    tft.println(networksArray[q]);
+                    q++;
+                }
                 break;
             case 2: // BUTTON SELECT
-                tft.println("Attacking network:");
-                tft.println(networksArray[0]);
+                if(buttonCursor == networkIndex){
+                    tft.fillScreen(ST7735_RED);
+                    tft.setTextColor(ST7735_WHITE);
+                    tft.setTextSize(1);
+                    tft.setCursor(0,0);
+                    tft.println("GUMAGANA BAIIIIII");
+                    Serial.println("gumagana nga baiiii");
+                    }
                 break;  
             default:
+                tft.fillScreen(ST7735_YELLOW);
+                tft.setTextColor(ST7735_WHITE); 
                 tft.println("Invalid network index.");
                 break;            
           }
         }
-    }
     else if(button2state == LOW){
         btn2();
     }

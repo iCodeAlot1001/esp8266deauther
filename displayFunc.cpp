@@ -3,6 +3,7 @@
 #include <Adafruit_ST7735.h>
 #include <SPI.h>
 #include "wifi_scan.h"
+extern std::vector<String> networksArray;
 
 extern Adafruit_ST7735 tft;
 void btn1(){ //wifi jammer
@@ -16,12 +17,12 @@ void btn1(){ //wifi jammer
 void btn2(){
     tft.setTextColor(ST7735_RED, ST7735_WHITE);
     tft.println("pressed bluetooth jammer");
-    delay(2000);
+    delay(1000);
 }
 void btn3(){
     tft.setTextColor(ST7735_RED, ST7735_WHITE);
     tft.println("PRESSED rgb color");
-    delay(2000);
+    delay(1000);
 
 }
 void blank(){
