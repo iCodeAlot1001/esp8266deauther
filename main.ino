@@ -27,6 +27,9 @@ int button3state = HIGH;
 int screenCursor = -1; // screen size ata parang ganon
 int buttonCursor = 0; // eto yung navigator
 int networkIndex = 0; // eto yung pinaka gumagalaw sa buttons
+
+int buttonIndex;
+
  
  //TEST CODE
 
@@ -64,17 +67,17 @@ void loop(){
         wifi_scan();
         delay(1000);
 
-        if(digitalRead(button1) == LOW){
+        if(button1state == LOW){
             networkIndex == 0;
             buttonCursor++; 
             if(buttonCursor>=networksArray.size())screenCursor=0;
         }
-        else if(digitalRead(button2) == LOW){
+        else if(button2state == LOW){
             networkIndex == 1;
             buttonCursor--; if(screenCursor<0)buttonCursor=networksArray.size()-1;
             if(buttonCursor<0)screenCursor=networksArray.size()-1;
         }
-         else if(digitalRead(button3) == LOW){
+         else if(button3state == LOW){
             networkIndex == 2;
             buttonCursor = screenCursor;
         }     
@@ -85,9 +88,11 @@ void loop(){
                 tft.setTextSize(1);
                 tft.setCursor(0,0);
                 for(int q=0;q<networksArray.size();){
-                    if (screenCursor == buttonCursor){ //test line
-                        tft.print(networksArray[buttonCursor]); //test line
+                    if (screenCursor == buttonCursor){ 
+                        tft.setTextColor(ST7735_RED, ST7735_WHITE);//test line
+                        tft.println(networksArray[buttonCursor]); //test line
                     }
+                    
                     tft.println(networksArray[q]);
                     q++;
                 }
@@ -102,7 +107,9 @@ void loop(){
                 tft.println(networksArray[buttonCursor]);
                 for(int q=0;q<networksArray.size();){
                     tft.print(networksArray[buttonCursor]); //test line
-                    if (screenCursor == buttonCursor){ //test line
+                    if (screenCursor == buttonCursor){
+                      tft.setTextColor(ST7735_RED, ST7735_WHITE);
+                      tft.println(networksArray[buttonCursor]); //test line
                     }
                     tft.println(networksArray[q]);
                     q++;
@@ -129,8 +136,9 @@ void loop(){
                 delay(200);       
                 break;     
                 
-          }
+          
         }
+    }
     else if(button2state == LOW){
         btn2();
     }
