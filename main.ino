@@ -19,15 +19,6 @@ const char button3 = 12; //D6
 
 Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_MOSI, TFT_SCK, TFT_RST);
 
-// switch case settings .........
-
-//int buttonState = LOW;
-//enum Buttons { btn1, btn2, btn3 };
-
-
-
-
-// ...........
 
 int button1state = HIGH;
 int button2state = HIGH;
@@ -74,15 +65,18 @@ void loop(){
         delay(1000);
 
         if(digitalRead(button1) == LOW){
+            networkIndex == 0;
             buttonCursor++; 
             if(buttonCursor>=networksArray.size())screenCursor=0;
         }
         else if(digitalRead(button2) == LOW){
+            networkIndex == 1;
             buttonCursor--; if(screenCursor<0)buttonCursor=networksArray.size()-1;
             if(buttonCursor<0)screenCursor=networksArray.size()-1;
         }
          else if(digitalRead(button3) == LOW){
-            networkIndex = screenCursor;
+            networkIndex == 2;
+            buttonCursor = screenCursor;
         }     
         switch (networkIndex){
             case 0: // BUTTON UP
@@ -97,6 +91,8 @@ void loop(){
                     tft.println(networksArray[q]);
                     q++;
                 }
+                Serial.println("button1 scan is working");
+                delay(200);
                 break;
             case 1: // BUTTON DOWN
                 tft.fillScreen(ST7735_BLACK);
@@ -105,12 +101,14 @@ void loop(){
                 tft.setCursor(0,0);
                 tft.println(networksArray[buttonCursor]);
                 for(int q=0;q<networksArray.size();){
+                    tft.print(networksArray[buttonCursor]); //test line
                     if (screenCursor == buttonCursor){ //test line
-                        tft.print(networksArray[buttonCursor]); //test line
                     }
                     tft.println(networksArray[q]);
                     q++;
                 }
+                Serial.println("button2 scan is working");
+                delay(200);
                 break;
             case 2: // BUTTON SELECT
                 if(buttonCursor == networkIndex){
@@ -119,14 +117,18 @@ void loop(){
                     tft.setTextSize(1);
                     tft.setCursor(0,0);
                     tft.println("GUMAGANA BAIIIIII");
-                    Serial.println("gumagana nga baiiii");
+                    Serial.println("gumagana scan nga baiiii");
                     }
                 break;  
+                delay(200);
             default:
                 tft.fillScreen(ST7735_YELLOW);
                 tft.setTextColor(ST7735_WHITE); 
                 tft.println("Invalid network index.");
-                break;            
+                Serial.println("na trigger yung default sa scan");
+                delay(200);       
+                break;     
+                
           }
         }
     else if(button2state == LOW){

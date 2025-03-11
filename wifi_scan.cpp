@@ -17,7 +17,8 @@ void wifi_scan(){
     delay(1000);
     tft.println("Starting the scan...");
     Serial.println("Serial starting the scan...");
-
+    Serial.println("Scanning....");
+    //nigga
     WiFi.mode(WIFI_STA);
 
     WiFi.disconnect();
