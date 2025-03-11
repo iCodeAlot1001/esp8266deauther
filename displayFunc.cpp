@@ -17,12 +17,12 @@ void btn1(){ //wifi jammer
 void btn2(){
     tft.setTextColor(ST7735_RED, ST7735_WHITE);
     tft.println("pressed bluetooth jammer");
-    delay(1000);
+    delay(2000);
 }
 void btn3(){
     tft.setTextColor(ST7735_RED, ST7735_WHITE);
     tft.println("PRESSED rgb color");
-    delay(1000);
+    delay(2000);
 
 }
 void blank(){

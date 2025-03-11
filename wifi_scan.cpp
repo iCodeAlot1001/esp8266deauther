@@ -5,8 +5,7 @@
 
 extern Adafruit_ST7735 tft;
 
-//ALREADY WORKING
-//DO NOT TOUCH UNLESS THERES AN OPTIMIZATION OR UPGRADE
+std::vector<String> networksArray; //storage for networks
 
 void wifi_scan(){
     tft.fillScreen(ST7735_RED);
@@ -17,13 +16,14 @@ void wifi_scan(){
     Serial.begin(115200);
     delay(1000);
     tft.println("Starting the scan...");
+    Serial.println("Serial starting the scan...");
 
     WiFi.mode(WIFI_STA);
 
     WiFi.disconnect();
     delay(200);
 
-   std::vector<String> networksArray; //storage for networks
+//storage for networks
 
 
     int networkCount = WiFi.scanNetworks();
