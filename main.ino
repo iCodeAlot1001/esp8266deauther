@@ -56,8 +56,58 @@ void loop(){
     button1state = digitalRead(button1);
     button2state = digitalRead(button2);
     button3state = digitalRead(button3);
+    
+    int switchButtonCursor;
+    switchScreenCursor = 0;
 
-    if(button1state == LOW){
+    if(button1state==LOW){
+        switchButtonCursor=0;
+    }
+
+    switch(switchButtonCursor){
+        int buttonIndex;
+
+        if(button1state==LOW){
+            buttonIndex=0;
+            switchScreenCursor++;
+        }
+        else if(button2state==LOW){
+            buttonIndex=1;
+            switchScreenCursor--;
+        }
+        else if(button3state==LOW){
+            buttonIndex=2;
+            //thing=networksArray[switchScreenCursor];
+        }
+        case 0:
+          if(button1state==LOW){
+               buttonIndex=0;
+                switchScreenCursor++;
+            }
+            else if(button2state==LOW){
+                buttonIndex=1;
+              switchScreenCursor--;
+         }
+         else if(button3state==LOW){
+              buttonIndex=2;
+                //thing=networksArray[switchScreenCursor];
+         }
+              switch(buttonIndex){
+            
+
+            case 0:
+                caseButton0();
+            case 1:
+                caseButton1();
+               break;
+            case 2:
+                caseButton2();
+          default:
+                break;
+        }
+    }
+
+    /*if(button1state == LOW){
         delay(1000);
         wifi_scan();
         delay(1000);
@@ -105,5 +155,5 @@ void loop(){
     }
     else{
         blank();
-    }
+    }*/
 }

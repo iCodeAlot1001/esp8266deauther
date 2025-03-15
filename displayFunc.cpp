@@ -9,7 +9,8 @@ extern Adafruit_ST7735 tft;
 
 int screenCursor = -1; // screen size ata parang ganon.. starting point ng navigator
 int buttonCursor = 0; // eto yung navigator
-int networkIndex; // eto yung pinaka gumagalaw sa buttons
+int networkIndex = -1; // eto yung pinaka gumagalaw sa buttons
+int switchScreenCursor = -1; // sa switch statement koto
 
 
 void caseButton0(){
@@ -18,9 +19,9 @@ tft.setTextColor(ST7735_YELLOW, ST7735_WHITE);
 tft.setTextSize(1);
 tft.setCursor(0,0);
 for(int q=0;q<networksArray.size();){
-    if (screenCursor == buttonCursor){ 
+    if (switchScreenCursor){ 
         tft.setTextColor(ST7735_RED, ST7735_WHITE);//test line
-        tft.println(networksArray[buttonCursor]); //test line
+        tft.println(networksArray[switchScreenCursor]); //test line
     }
     
     tft.println(networksArray[q]);
@@ -35,12 +36,10 @@ void caseButton1(){
     tft.setTextColor(ST7735_YELLOW, ST7735_WHITE);
     tft.setTextSize(1);
     tft.setCursor(0,0);
-    tft.println(networksArray[buttonCursor]);
     for(int q=0;q<networksArray.size();){
-        tft.print(networksArray[buttonCursor]); //test line
-        if (screenCursor == buttonCursor){
+        if (switchScreenCursor == networkIndex){
           tft.setTextColor(ST7735_RED, ST7735_WHITE);
-          tft.println(networksArray[buttonCursor]); //test line
+          tft.println(networksArray[switchScreenCursor]); //test line
         }
         tft.println(networksArray[q]);
         q++;
