@@ -64,10 +64,10 @@ void loop(){
         switchButtonCursor=0;
     }
 
-    switch(switchButtonCursor){
+    switch(switchButtonCursor){//good
         int buttonIndex;
 
-        if(button1state==LOW){
+        if(button1state==LOW){ //good
             buttonIndex=0;
             switchScreenCursor++;
         }
@@ -81,28 +81,30 @@ void loop(){
         }
         case 0:
           if(button1state==LOW){
-               buttonIndex=0;
-                switchScreenCursor++;
+            buttonIndex=0;
+             switchScreenCursor++;
             }
             else if(button2state==LOW){
                 buttonIndex=1;
               switchScreenCursor--;
-         }
-         else if(button3state==LOW){
+            }
+          else if(button3state==LOW){
               buttonIndex=2;
                 //thing=networksArray[switchScreenCursor];
-         }
+            }
+         break;
               switch(buttonIndex){
             
 
             case 0:
                 caseButton0();
+                break;
             case 1:
                 caseButton1();
                break;
             case 2:
                 caseButton2();
-          default:
+              default:
                 break;
         }
     }
